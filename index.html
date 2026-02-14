@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You 💗</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+font-family:'Poppins',sans-serif;
+background:#f6eaea;
+overflow:hidden;
+}
+
+/* PASSWORD */
+.password-screen{
+position:fixed;
+inset:0;
+background:#f6eaea;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+z-index:200;
+}
+
+.password-screen h2{
+font-family:'Great Vibes',cursive;
+font-size:42px;
+margin-bottom:20px;
+color:#3d0000;
+}
+
+.password-screen input{
+padding:12px 20px;
+border-radius:30px;
+border:1px solid #ccc;
+width:220px;
+text-align:center;
+}
+
+.password-screen button{
+margin-top:15px;
+padding:10px 25px;
+border:none;
+border-radius:25px;
+background:linear-gradient(135deg,#ff2d6f,#ff6aa5);
+color:white;
+cursor:pointer;
+}
+
+/* MAIN */
+.main{
+display:none;
+height:100vh;
+overflow-y:scroll;
+scroll-snap-type:y mandatory;
+scroll-behavior:smooth;
+}
+
+section{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+scroll-snap-align:start;
+padding:30px;
+text-align:center;
+position:relative;
+}
+
+/* FIRSTS */
+.first-title{
+font-family:'Great Vibes',cursive;
+font-size:42px;
+margin-bottom:30px;
+color:#3d0000;
+}
+
+.first-item{
+opacity:0;
+transform:translateY(40px);
+transition:all 0.8s ease;
+margin:18px 0;
+font-size:18px;
+max-width:350px;
+}
+
+.first-item.visible{
+opacity:1;
+transform:translateY(0);
+}
+
+.date{font-weight:500;}
+.date::before{content:"💗 ";}
+
+.first-item span{
+display:block;
+font-size:14px;
+opacity:0.7;
+margin-top:5px;
+}
+
+/* ENVELOPE */
+.envelope{
+width:280px;
+height:180px;
+position:relative;
+background:linear-gradient(#c4161c,#8b0000);
+border-radius:0 0 20px 20px;
+cursor:pointer;
+box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+.flap{
+position:absolute;
+top:0;
+left:0;
+width:0;
+height:0;
+border-left:140px solid transparent;
+border-right:140px solid transparent;
+border-top:90px solid #a30000;
+transform-origin:top;
+transition:0.6s;
+}
+
+.open .flap{transform:rotateX(180deg);}
+
+.letter{
+margin-top:30px;
+max-width:350px;
+background:white;
+padding:20px;
+border-radius:20px;
+box-shadow:0 10px 30px rgba(0,0,0,0.1);
+display:none;
+white-space:pre-line;
+}
+
+.show{display:block;}
+
+h1{
+font-family:'Great Vibes',cursive;
+font-size:44px;
+color:#3d0000;
+margin-bottom:30px;
+}
+
+.yes-btn{
+background:linear-gradient(135deg,#ff2d6f,#ff6aa5);
+color:white;
+border:none;
+padding:15px 40px;
+border-radius:40px;
+font-size:20px;
+cursor:pointer;
+box-shadow:0 8px 20px rgba(255,45,111,0.4);
+}
+
+.no-btn{
+margin-top:15px;
+background:#eee;
+border:none;
+padding:10px 25px;
+border-radius:25px;
+cursor:pointer;
+position:relative;
+}
+
+/* POPUP */
+.popup{
+display:none;
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+background:white;
+padding:30px;
+border-radius:25px;
+width:85%;
+max-width:420px;
+box-shadow:0 20px 50px rgba(0,0,0,0.3);
+z-index:100;
+text-align:center;
+white-space:pre-line;
+}
+
+#typedText{
+min-height:120px;
+}
+
+</style>
+</head>
+<body>
+
+<!-- Background Music -->
+<audio id="bgMusic" loop>
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_5f4b1d4c3e.mp3?filename=romantic-background-110083.mp3" type="audio/mpeg">
+</audio>
+
+<div class="password-screen" id="passwordScreen">
+<h2>Enter Password 💗</h2>
+<input type="password" id="passwordInput">
+<button onclick="checkPassword()">Enter</button>
+</div>
+
+<div class="main" id="mainContent">
+
+<section>
+<div class="first-title">Our Firsts 💗</div>
+
+<div class="first-item">
+<div class="date">4 Dec 2025 — First Call</div>
+<span>I was so nervous ong💔💔</span>
+</div>
+
+<div class="first-item">
+<div class="date">7th August 2025 — First Text</div>
+<span>I'm glad you texted🤭🤭</span>
+</div>
+
+<div class="first-item">
+<div class="date">8 November 2025 — Almost Goodbye Fight</div>
+<span>I thought it was over but thanks to your urge to get pericing</span>
+</div>
+
+<div class="first-item">
+<div class="date">13 November — Proposal</div>
+<span>eppy eppy😛</span>
+</div>
+</section>
+
+<section>
+<div class="envelope" id="env" onclick="openEnvelope()">
+<div class="flap"></div>
+</div>
+
+<div class="letter" id="letter">
+HAPPYY VALENTINE'S DAYYY MY LOVEEEE💗  
+I LOVEEE YOUU THEEE MOSTTT , THE MOST MWAHMWAH😠😠💋💋  
+NO MATTER HOW COMPLICATED THINGS GET PROMISE ME YOU WON'T GIVE UP😕😕😕  
+PLEASEPLEASE I WANT US TO GET MARRIED 😞😞  
+I HOPE IT'S ALWAYS US.
+</div>
+</section>
+
+<section>
+<h1>Will you be my Valentine?</h1>
+<button class="yes-btn" onclick="sayYes()">YES! 💖</button>
+<br><br>
+<button class="no-btn" id="noBtn">No</button>
+</section>
+
+</div>
+
+<div class="popup" id="popup">
+<div id="typedText"></div>
+<div id="kissContainer" style="margin-top:20px;height:120px;position:relative;"></div>
+</div>
+
+<script>
+
+function checkPassword(){
+if(document.getElementById("passwordInput").value==="131125"){
+document.getElementById("passwordScreen").style.display="none";
+document.getElementById("mainContent").style.display="block";
+document.getElementById("bgMusic").play();
+}
+else{alert("Wrong password 😕");}
+}
+
+function openEnvelope(){
+document.getElementById("env").classList.toggle("open");
+document.getElementById("letter").classList.toggle("show");
+}
+
+/* No button runs away */
+const noBtn=document.getElementById("noBtn");
+noBtn.addEventListener("mouseover",()=>{
+noBtn.style.position="absolute";
+noBtn.style.left=Math.random()*80+"%";
+noBtn.style.top=Math.random()*80+"%";
+});
+
+/* Typewriter + kisses */
+function sayYes(){
+document.getElementById("popup").style.display="block";
+
+const text=`YOU'RE SO FINE ONGGGG , SO FINEEE SOO PYAARUUU 😕💗  
+MY PRETTYY BABYYY  
+
+I WILL ALWAYS LOVE YOU  
+FUCK THIS DISTANCE 😠💗 I would do anything for you 
+i would cut strawberries into hearts for you 
+or maybe learn to cook your favourite dish. 
+I wish you could see yourself through my eyes and realise how BEAUTIFUL you are. 
+I WILL ALWAYS LOVE YOU 😠😠😠😠😠😠😠😠😠😠😠😠😠😠BYIEE MWAHHH I LOVE YOUUUUUU😛💗💗💗 
+
+kissis for you mwah😠💗`;
+
+let i=0;
+let speed=40;
+let typed=document.getElementById("typedText");
+typed.innerHTML="";
+
+function type(){
+if(i<text.length){
+typed.innerHTML+=text.charAt(i);
+i++;
+setTimeout(type,speed);
+}
+else{
+kissExplosion();
+}
+}
+type();
+}
+
+function kissExplosion(){
+let container=document.getElementById("kissContainer");
+for(let i=0;i<25;i++){
+let kiss=document.createElement("div");
+kiss.innerText="💋";
+kiss.style.position="absolute";
+kiss.style.left="50%";
+kiss.style.top="50%";
+kiss.style.fontSize="24px";
+kiss.style.transition="1s ease-out";
+container.appendChild(kiss);
+
+setTimeout(()=>{
+kiss.style.transform=`translate(${(Math.random()-0.5)*300}px, ${(Math.random()-0.5)*200}px) scale(1.5)`;
+kiss.style.opacity="0";
+},50);
+
+setTimeout(()=>kiss.remove(),1000);
+}
+}
+
+/* Fade in firsts */
+const items=document.querySelectorAll(".first-item");
+const observer=new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+entry.target.classList.add("visible");
+}
+});
+},{threshold:0.4});
+items.forEach(item=>observer.observe(item));
+
+</script>
+
+</body>
+  </html>
+  
